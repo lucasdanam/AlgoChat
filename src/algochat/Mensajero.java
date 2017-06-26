@@ -14,7 +14,7 @@ public class Mensajero {
 		try{
 			contacto=agenda.obtenerContacto(nombre);
 		}catch(ContactoInexistente e){
-			contacto=new Contacto("");
+			contacto=new Contacto(nombre);
 			agenda.agregarContacto(contacto);
 		}
 		contacto.enviarMensaje(mensaje);
@@ -25,7 +25,7 @@ public class Mensajero {
 		try{
 			contacto=agenda.obtenerContacto(nombre);
 		}catch(ContactoInexistente e){
-			contacto=new Contacto("");
+			contacto=new Contacto(nombre);
 			agenda.agregarContacto(contacto);
 		}
 		contacto.recibirMensaje(mensaje);
@@ -58,7 +58,7 @@ public class Mensajero {
 		try{
 			contacto=agenda.obtenerContacto(nombre);
 		}catch(ContactoInexistente e){
-			contacto=new Contacto("");
+			contacto=new Contacto(nombre);
 			agenda.agregarContacto(contacto);
 		}
 		return contacto.mensajesEnviadosTotales();
@@ -69,7 +69,7 @@ public class Mensajero {
 		try{
 			contacto=agenda.obtenerContacto(nombre);
 		}catch(ContactoInexistente e){
-			contacto=new Contacto("");
+			contacto=new Contacto(nombre);
 			agenda.agregarContacto(contacto);
 		}
 		return contacto.mensajesRecibidos();
@@ -80,7 +80,7 @@ public class Mensajero {
 		try{
 			contacto=agenda.obtenerContacto(nombre);
 		}catch(ContactoInexistente e){
-			contacto=new Contacto("");
+			contacto=new Contacto(nombre);
 			agenda.agregarContacto(contacto);
 		}
 		return contacto.getChat();
@@ -91,7 +91,7 @@ public class Mensajero {
 		try{
 			grupo=agenda.obtenerGrupo(nombreGrupo);
 		}catch(GrupoInexistente e){
-			grupo=new Grupo("");
+			grupo=new Grupo(nombreGrupo);
 			agenda.agregarGrupo(grupo);
 		}
 		grupo.enviarMensaje(mensaje,nombreContacto);
@@ -102,7 +102,7 @@ public class Mensajero {
 		try{
 			grupo=agenda.obtenerGrupo(nomGrupo);
 		}catch(GrupoInexistente e){
-			grupo=new Grupo("");
+			grupo=new Grupo(nomGrupo);
 			agenda.agregarGrupo(grupo);
 		}
 		grupo.recibirMensaje(mensaje);
@@ -113,7 +113,7 @@ public class Mensajero {
 		try{
 			grupo=agenda.obtenerGrupo(nombre);
 		}catch(GrupoInexistente e){
-			grupo=new Grupo("");
+			grupo=new Grupo(nombre);
 			agenda.agregarGrupo(grupo);
 		}
 		return grupo.getChat();
@@ -124,7 +124,7 @@ public class Mensajero {
 		try{
 			grupo=agenda.obtenerGrupo(nombreGrupo);
 		}catch(GrupoInexistente e){
-			grupo=new Grupo("");
+			grupo=new Grupo(nombreGrupo);
 			agenda.agregarGrupo(grupo);
 		}
 		return grupo.mensajesEnviadosTotales();
@@ -135,7 +135,7 @@ public class Mensajero {
 		try{
 			grupo=agenda.obtenerGrupo(nombre);
 		}catch(GrupoInexistente e){
-			grupo=new Grupo("");
+			grupo=new Grupo(nombre);
 			agenda.agregarGrupo(grupo);
 		}
 		return grupo.mensajesRecibidos();
@@ -146,7 +146,7 @@ public class Mensajero {
 		try{
 			contacto=agenda.obtenerContacto(nombreContacto);
 		}catch(ContactoInexistente e){
-			contacto=new Contacto("");
+			contacto=new Contacto(nombreContacto);
 			agenda.agregarContacto(contacto);
 		}
 		contacto.borrarMensajes();
@@ -157,7 +157,7 @@ public class Mensajero {
 		try{
 			grupo=agenda.obtenerGrupo(nombreGrupo);
 		}catch(GrupoInexistente e){
-			grupo=new Grupo("");
+			grupo=new Grupo(nombreGrupo);
 			agenda.agregarGrupo(grupo);
 		}
 		grupo.borrarMensajes();
