@@ -7,19 +7,14 @@ public class Agenda {
 	private HashMap<String,Agendable> agendaGeneral;
 	private HashMap<String,Contacto> agendaDeContactos;
 	private HashMap<String,Grupo> agendaDeGrupos;
-	private int i;
 	
 	public Agenda(){
 		agendaGeneral = new HashMap<String,Agendable>();
 		agendaDeContactos = new HashMap<String,Contacto>();
 		agendaDeGrupos = new HashMap<String,Grupo>();
-		i=0;
 	}
 	
 	public void agregarGrupo(Grupo agendable) {
-		if (this.existeGrupo(agendable.getNombre())) 
-			agendable.setNombre(agendable.getNombre()+i++); 
-		
 		agendaGeneral.put(agendable.getNombre(),agendable);
 		agendaDeGrupos.put(agendable.getNombre(),agendable);
 	}
