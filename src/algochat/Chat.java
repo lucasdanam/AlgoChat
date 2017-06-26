@@ -6,23 +6,21 @@ public class Chat {
 		private LinkedList<String> mensajesEnviados;
 		private LinkedList<String> mensajesRecibidos;
 		private LinkedList<String> conversacion;
-		private String nombre;
 		
-		public Chat(String nombre){
-			mensajesEnviados=new LinkedList<String>();
-			mensajesRecibidos=new LinkedList<String>();
-			conversacion=new LinkedList<String>();
-			this.nombre=nombre;
+		public Chat(){
+			this.mensajesRecibidos=new LinkedList<String>();
+			this.mensajesEnviados=new LinkedList<String>();
+			this.conversacion=new LinkedList<String>();
 		}
 		
 		public void guardarMensajeEnviado(String mensaje){
 			this.mensajesEnviados.addFirst(mensaje);
-			this.conversacion.addFirst("Yo: "+mensaje);
+			this.conversacion.addFirst(mensaje);
 		}
 		
 		public void guardarMensajeRecibido(String mensaje){
 			this.mensajesRecibidos.addFirst(mensaje);
-			this.conversacion.addFirst(nombre+": "+mensaje);
+			this.conversacion.addFirst(mensaje);
 		}
 		
 		public String obtenerMensaje(int posicion){
@@ -44,6 +42,15 @@ public class Chat {
 		public int cantidadDeMensajesRecibidos(){
 			return this.mensajesRecibidos.size();
 		}
+		
+		public void eliminarMensajeEnviado(String mensaje){
+			mensajesEnviados.remove(mensaje);
+			conversacion.remove(mensaje);
+		}
+		
+		public void borrarMensajes(){
+			this.mensajesEnviados.removeAll(mensajesEnviados);
+			this.mensajesRecibidos.removeAll(mensajesRecibidos);
+			this.conversacion.removeAll(conversacion);
+		}
 }
-
-

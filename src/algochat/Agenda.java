@@ -4,17 +4,22 @@ import java.util.HashMap;
 
 public class Agenda {
 	
-	HashMap<String,Agendable> agendaGeneral;
-	HashMap<String,Contacto> agendaDeContactos;
-	HashMap<String,Grupo> agendaDeGrupos;
+	private HashMap<String,Agendable> agendaGeneral;
+	private HashMap<String,Contacto> agendaDeContactos;
+	private HashMap<String,Grupo> agendaDeGrupos;
+	private int i;
 	
 	public Agenda(){
 		agendaGeneral = new HashMap<String,Agendable>();
 		agendaDeContactos = new HashMap<String,Contacto>();
 		agendaDeGrupos = new HashMap<String,Grupo>();
+		i=0;
 	}
 	
-	public void agregarGrupo(Grupo agendable){
+	public void agregarGrupo(Grupo agendable) {
+		if (this.existeGrupo(agendable.getNombre())) 
+			agendable.setNombre(agendable.getNombre()+i++); 
+		
 		agendaGeneral.put(agendable.getNombre(),agendable);
 		agendaDeGrupos.put(agendable.getNombre(),agendable);
 	}
@@ -54,12 +59,12 @@ public class Agenda {
 		return cantidadDeChats;
 	}
 	
-	public Contacto obtenerContacto(String nombre){
+	public Contacto obtenerContacto(String nombre) throws ContactoInexistente{
 		if (!this.existeContacto(nombre)) throw new ContactoInexistente();
 		return agendaDeContactos.get(nombre);
 	}
 	
-	public Grupo obtenerGrupo(String nombre){
+	public Grupo obtenerGrupo(String nombre) throws GrupoInexistente{
 		if (!this.existeGrupo(nombre)) throw new GrupoInexistente();
 		return this.agendaDeGrupos.get(nombre);
 	}
@@ -73,6 +78,35 @@ public class Agenda {
 	}
 	
 	public HashMap<String,Agendable> obtenerListado(){
-		return agendaGeneral;
+		return this.agendaGeneral;
+	}
+	
+	public void agregarContactoAGrupo(String nombreContacto,String nombreGrupo){
+		Contacto contacto;
+		Grupo grupo;
+		try{
+			contacto=this.obtenerContacto(nombreContacto);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			this.agregarContacto(contacto);
+		}
+		try{
+			grupo=this.obtenerGrupo(nombreGrupo);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			this.agregarGrupo(grupo);
+		}
+		grupo.agregarContacto(contacto);
+	}
+	
+	public int cantidadDeMiembrosEn(String nombreGrupo){
+		Grupo grupo;
+		try{
+			grupo=this.obtenerGrupo(nombreGrupo);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			this.agregarGrupo(grupo);
+		}
+		return grupo.cantidadDeMiembros();
 	}
 }

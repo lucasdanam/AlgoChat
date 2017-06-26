@@ -20,10 +20,20 @@ public class Grupo extends Agendable{
 		return (integrantes.size()+1);
 	}
 	
-	public void guardarMensajeRecibido(String mensaje, String nombreDeContacto){
-		this.chat.guardarMensajeRecibido(mensaje);		
-		integrantes.get(nombreDeContacto).guardarMensajeRecibidoEnGrupo();
-
-		
+	public void enviarMensaje(String mensaje, String nombreDeContacto){
+		this.chat.guardarMensajeEnviado(nombreDeContacto+": "+mensaje);		
+		integrantes.get(nombreDeContacto).enviarMensajeGrupalA(mensaje,this);
+	}
+	
+	public void eliminarMensajeEnviado(String mensaje){
+		this.chat.eliminarMensajeEnviado(mensaje);
+	}
+	
+	public void borrarMensajes(){
+		chat.borrarMensajes();
+		for ( String nombreDeContacto : this.integrantes.keySet()){
+			Contacto contacto=integrantes.get(nombreDeContacto);
+			contacto.eliminarMensajesEnviadosA(this);
+		}
 	}
 }

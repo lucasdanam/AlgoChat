@@ -1,6 +1,9 @@
-package algochat;
+package test;
 
 import org.junit.Test;
+
+import algochat.AlgoChat;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

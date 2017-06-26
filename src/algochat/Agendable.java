@@ -1,14 +1,13 @@
 package algochat;
-import java.util.ArrayList;
 
-public class Agendable {
+public abstract class Agendable {
 	
 	protected String nombre;
 	protected Chat chat;
 	
 	public Agendable(String nombre){
 		this.nombre=nombre;
-		this.chat=new Chat(nombre);
+		this.chat=new Chat();
 	}
 
 	public String getNombre(){
@@ -19,23 +18,31 @@ public class Agendable {
 		return chat.estaActivo();
 	}
 	
-	public int mensajesEnviados(){
-		return(this.chat.cantidadDeMensajesEnviados());
-	}
-	
 	public int mensajesRecibidos(){
 		return(this.chat.cantidadDeMensajesRecibidos());
 	}
 	
-	public void guardarMensajeRecibido(String mensaje){
-		chat.guardarMensajeRecibido(mensaje);
+	public void enviarMensaje(String mensaje){
+		chat.guardarMensajeEnviado(this.nombre+": "+mensaje);
 	}
 	
-	public void guardarMensajeEnviado(String mensaje){
-		chat.guardarMensajeEnviado(mensaje);
+	public void recibirMensaje(String mensaje){
+		chat.guardarMensajeRecibido("Yo: "+mensaje);
 	}
 	
 	public Chat getChat(){
 		return chat;
+	}
+	
+	public int mensajesEnviadosTotales(){
+		return this.chat.cantidadDeMensajesEnviados();
+	}
+	
+	public int mensajesEnviadosDirectos(){
+		return (this.chat.cantidadDeMensajesEnviados());
+	}
+	
+	public void setNombre(String nombre){
+		this.nombre=nombre;
 	}
 }

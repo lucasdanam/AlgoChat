@@ -1,5 +1,5 @@
 package algochat;
 
-public class ContactoInexistente extends RuntimeException{
+public class ContactoInexistente extends Exception{
 
 }

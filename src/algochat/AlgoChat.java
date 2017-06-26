@@ -82,17 +82,39 @@ public class AlgoChat {
 		return mensajero.obtenerConversacionCon(nombre);
 	}
 	
-	public void agregarContactoAGrupo(String nombreContacto, String nombreGrupo){
-		Contacto contacto=agenda.obtenerContacto(nombreContacto);
-		agenda.obtenerGrupo(nombreGrupo).agregarContacto(contacto);
-			
+	public void agregarContactoAGrupo(String nombreContacto, String nombreGrupo) {
+		agenda.agregarContactoAGrupo(nombreContacto,nombreGrupo);	
 	}
 	
 	public int cantidadMiembrosEnGrupo(String grupo){
-		return agenda.obtenerGrupo(grupo).cantidadDeMiembros();
+		return agenda.cantidadDeMiembrosEn(grupo);
 	}
 	
-	recibirMensajeDeGrupo(String nombreGrupo,String nombreContacto,String mensaje){
+	public void recibirMensajeDeGrupo(String nombreGrupo,String nombreContacto,String mensaje){
 		mensajero.recibirMensajeDeGrupo(nombreGrupo,nombreContacto,mensaje);
 	}
+	
+	public void enviarMensajeAGrupo(String nombreGrupo,String mensaje){
+		mensajero.enviarMensajeAGrupo(nombreGrupo,mensaje);
+	}
+	
+	public int cantidadMensajesRecibidosDelGrupo(String nombreGrupo){
+		return mensajero.cantidadDeMensajesRecibidosDelGrupo(nombreGrupo);
+	}
+	
+	public int cantidadMensajesEnviadosAlGrupo(String nombreGrupo){
+		return mensajero.cantidadDeMensajesEnviadosAGrupo(nombreGrupo);
+	}
+	
+	public Chat obtenerConversacionConGrupo(String nombreGrupo){
+		return mensajero.obtenerConversacionConGrupo(nombreGrupo);
+	}
+	
+    public void borrarMensajesDelContacto(String nombreContacto){
+    	mensajero.borrarMensajesDe(nombreContacto);
+    }
+    
+    public void borrarMensajesDelGrupo(String nombreGrupo){
+    	mensajero.borrarMensajesDeGrupo(nombreGrupo);
+    }
 }

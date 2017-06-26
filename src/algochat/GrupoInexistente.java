@@ -1,5 +1,5 @@
 package algochat;
 
-public class GrupoInexistente extends RuntimeException{
+public class GrupoInexistente extends Exception{
 
 }

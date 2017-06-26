@@ -10,13 +10,25 @@ public class Mensajero {
 	}
 	
 	public void recibirMensaje(String nombre, String mensaje){
-		Agendable agendable=agenda.obtenerContacto(nombre);
-		agendable.guardarMensajeRecibido(mensaje);
+		Contacto contacto;
+		try{
+			contacto=agenda.obtenerContacto(nombre);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			agenda.agregarContacto(contacto);
+		}
+		contacto.enviarMensaje(mensaje);
 	}
 	
 	public void enviarMensaje(String nombre, String mensaje){
-		Agendable agendable=agenda.obtenerContacto(nombre);
-		agendable.guardarMensajeEnviado(mensaje);
+		Contacto contacto;
+		try{
+			contacto=agenda.obtenerContacto(nombre);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			agenda.agregarContacto(contacto);
+		}
+		contacto.recibirMensaje(mensaje);
 	}
 	
 	public int cantidadDeMensajesEnviados(){
@@ -25,7 +37,7 @@ public class Mensajero {
 		if(listaDeAgendados.isEmpty()) return cantidadDeMensajes;
 		for (String key : listaDeAgendados.keySet()){
 			Agendable agendable=listaDeAgendados.get(key);
-			cantidadDeMensajes+=agendable.mensajesEnviados();
+			cantidadDeMensajes+=agendable.mensajesRecibidos();
 		}
 		return cantidadDeMensajes;
 	}
@@ -36,28 +48,118 @@ public class Mensajero {
 		if(listaDeAgendados.isEmpty()) return cantidadDeMensajes;
 		for (String key : listaDeAgendados.keySet()){
 			Agendable agendable=listaDeAgendados.get(key);
-			cantidadDeMensajes+=agendable.mensajesRecibidos();
+			cantidadDeMensajes+=agendable.mensajesEnviadosDirectos();
 		}
 		return cantidadDeMensajes;
 	}	
 	
 	public int cantidadDeMensajesDe(String nombre){
-		Agendable agendable=agenda.obtenerContacto(nombre);
-		return agendable.mensajesRecibidos();
+		Contacto contacto;
+		try{
+			contacto=agenda.obtenerContacto(nombre);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			agenda.agregarContacto(contacto);
+		}
+		return contacto.mensajesEnviadosTotales();
 	}
 	
 	public int cantidadDeMensajesEnviadosA(String nombre){
-		Agendable agendable=agenda.obtenerContacto(nombre);
-		return agendable.mensajesEnviados();
+		Contacto contacto;
+		try{
+			contacto=agenda.obtenerContacto(nombre);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			agenda.agregarContacto(contacto);
+		}
+		return contacto.mensajesRecibidos();
 	}
 	
 	public Chat obtenerConversacionCon(String nombre){
-		Agendable agendable=agenda.obtenerContacto(nombre);
-		return agendable.getChat();
+		Contacto contacto;
+		try{
+			contacto=agenda.obtenerContacto(nombre);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			agenda.agregarContacto(contacto);
+		}
+		return contacto.getChat();
 	}
 	
 	public void recibirMensajeDeGrupo(String nombreGrupo,String nombreContacto,String mensaje){
-		Grupo grupo=agenda.obtenerGrupo(nombreGrupo);
-		grupo.guardarMensajeRecibido(mensaje,nombreContacto);
+		Grupo grupo;
+		try{
+			grupo=agenda.obtenerGrupo(nombreGrupo);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			agenda.agregarGrupo(grupo);
+		}
+		grupo.enviarMensaje(mensaje,nombreContacto);
+	}
+	
+	public void enviarMensajeAGrupo(String nomGrupo, String mensaje){
+		Grupo grupo;
+		try{
+			grupo=agenda.obtenerGrupo(nomGrupo);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			agenda.agregarGrupo(grupo);
+		}
+		grupo.recibirMensaje(mensaje);
+	}
+	
+	public Chat obtenerConversacionConGrupo(String nombre){
+		Grupo grupo;
+		try{
+			grupo=agenda.obtenerGrupo(nombre);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			agenda.agregarGrupo(grupo);
+		}
+		return grupo.getChat();
+	}
+	
+	public int cantidadDeMensajesRecibidosDelGrupo(String nombreGrupo){
+		Grupo grupo;
+		try{
+			grupo=agenda.obtenerGrupo(nombreGrupo);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			agenda.agregarGrupo(grupo);
+		}
+		return grupo.mensajesEnviadosTotales();
+	}
+	
+	public int cantidadDeMensajesEnviadosAGrupo(String nombre){
+		Grupo grupo;
+		try{
+			grupo=agenda.obtenerGrupo(nombre);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			agenda.agregarGrupo(grupo);
+		}
+		return grupo.mensajesRecibidos();
+	}
+	
+	public void borrarMensajesDe(String nombreContacto){
+		Contacto contacto;
+		try{
+			contacto=agenda.obtenerContacto(nombreContacto);
+		}catch(ContactoInexistente e){
+			contacto=new Contacto("");
+			agenda.agregarContacto(contacto);
+		}
+		contacto.borrarMensajes();
+	}
+	
+	public void borrarMensajesDeGrupo(String nombreGrupo){
+		Grupo grupo;
+		try{
+			grupo=agenda.obtenerGrupo(nombreGrupo);
+		}catch(GrupoInexistente e){
+			grupo=new Grupo("");
+			agenda.agregarGrupo(grupo);
+		}
+		grupo.borrarMensajes();
 	}
 }
