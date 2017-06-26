@@ -8,7 +8,6 @@ import algochat.Agenda;
 import algochat.Contacto;
 import algochat.ContactoInexistente;
 import algochat.Grupo;
-import junit.framework.Assert;
 
 public class AgendaTest {
 	
