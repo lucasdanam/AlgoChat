@@ -151,7 +151,7 @@ public class Mensajero {
 		}
 		contacto.borrarMensajes();
 	}
-	
+
 	public void borrarMensajesDeGrupo(String nombreGrupo){
 		Grupo grupo;
 		try{

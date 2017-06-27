@@ -22,11 +22,7 @@ public class Chat {
 			this.mensajesRecibidos.addFirst(mensaje);
 			this.conversacion.addFirst(mensaje);
 		}
-		
-		public String obtenerMensaje(int posicion){
-			return conversacion.get(posicion-1);
-		}
-		
+	
 		public boolean estaActivo(){
 			return (conversacion.size()>0);
 		}
